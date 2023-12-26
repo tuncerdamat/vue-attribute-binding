@@ -1,26 +1,43 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import { ref } from 'vue'
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+const message = ref('Hello Tunçer!')
+const isRed = ref(true)
+const color = ref('green')
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+function toggleRed(){
+  isRed.value = !isRed.value
 }
+
+function toggleColor() {
+  color.value = color.value === 'green' ? 'blue' : 'green';
+}
+
 </script>
 
+<template>
+  <p>
+    <span :title="message">
+      Hover your mouse over me for a few seconds to see my dynamically bound title!
+    </span>
+  </p>
+
+  <!--
+   class bindings have special support for objects and arrays
+   in addition to plain strings
+   -->
+  <p :class="{red: isRed}" @click="toggleRed">
+    This should be red... but click me to toggle it.
+  </p>
+
+  <!-- style bindings also support object and arrays -->
+  <p :style="{ color }" @click="toggleColor">
+    This should be green, and should toggle between green and blue on click.
+  </p>
+</template>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.red {
+  color: red;
 }
 </style>
